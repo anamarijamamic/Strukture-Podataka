@@ -43,8 +43,6 @@ int main() {
 	pozicija temp_p = NULL;
 	temp_p = (pozicija)malloc(sizeof(osoba));
 
-
-
 	printf("Odaberite :\n");
 	printf("1. Unesi osobu na pocetak liste\n");
 	printf("2. Unesi osobu na kraj liste\n");
@@ -62,7 +60,6 @@ int main() {
 
 	switch (odabir)
 	{
-		
 		case 1:
 			printf("\nIme i prezime: ");
 			scanf(" %s %s", ime, prezime);
@@ -132,39 +129,26 @@ int main() {
 		case 0:
 			return 0;
 		}
-
-
-
+	
 	return EXIT_SUCCESS;
-
 }
 
-
 int napravi_listu(pozicija head, char* ime, char* prezime, int godina_rodenja) {
-
 	pozicija nova_osoba = NULL;
-
 	nova_osoba = stvori_osobu(ime, prezime, godina_rodenja);
 	if (!nova_osoba) {
-
 		perror("Nije moguce alocirati memoriju!\n");
 		return -1;
 	}
-
 	umetni_nakon(head, nova_osoba);
-	
 	return EXIT_SUCCESS;
-
 }
 
 pozicija stvori_osobu(char* ime, char* prezime, int godina_rodenja)
 {
 	pozicija nova_osoba = NULL;
-
 	nova_osoba = (pozicija)malloc(sizeof(osoba));
-
 	if (!nova_osoba) {
-
 		perror("Nije moguce alocirati memoriju!\n");
 		return 0;
 	}
@@ -177,7 +161,6 @@ pozicija stvori_osobu(char* ime, char* prezime, int godina_rodenja)
 	return nova_osoba;
 }
 
-
 int ispisi_listu(pozicija head)
 {
 	pozicija temp = head->next;
@@ -186,7 +169,6 @@ int ispisi_listu(pozicija head)
 			temp->ime, temp->prezime, temp->godina_rodenja);
 		temp = temp->next;
 	}
-
 	return EXIT_SUCCESS;
 }
 
@@ -194,7 +176,6 @@ int dodaj_listu(pozicija head, char* ime, char* prezime, int godina_rodenja)
 {
 	pozicija nova_osoba = NULL;
 	pozicija zadnji = NULL;
-
 	nova_osoba = stvori_osobu(ime, prezime, godina_rodenja);
 	if (!nova_osoba) {
 		perror("Nije moguce alocirati memoriju!\n");
@@ -202,7 +183,6 @@ int dodaj_listu(pozicija head, char* ime, char* prezime, int godina_rodenja)
 	}
 	zadnji = pronadi_zadnjeg(head);
 	umetni_nakon(zadnji, nova_osoba);
-
 	return EXIT_SUCCESS;
 }
 
@@ -220,14 +200,12 @@ int umetni_nakon(pozicija zadnji, pozicija nova_osoba)
 {
 	nova_osoba->next = zadnji->next;
 	zadnji->next = nova_osoba;
-
 	return EXIT_SUCCESS;
 }
 
 pozicija pronadi_po_prezimenu(pozicija head, char* prezime)
 {
 	pozicija temp = head->next;
-
 	while (temp != NULL && strcmp(temp->prezime, prezime))
 		temp = temp->next;
 
@@ -237,7 +215,6 @@ pozicija pronadi_po_prezimenu(pozicija head, char* prezime)
 pozicija pronadi_prethodnog(pozicija head, pozicija nova_osoba)
 {
 	pozicija temp = head;
-
 	while (temp != NULL && temp->next != nova_osoba)
 		temp = temp->next;
 
@@ -251,12 +228,9 @@ int obrisi(pozicija head, pozicija brisi)
 	temp = (pozicija)malloc(sizeof(osoba));
 	q = (pozicija)malloc(sizeof(osoba));
 	q = brisi;
-
 	temp = pronadi_prethodnog(head, brisi);
 	temp->next = q->next;
-
 	free(q);
-
 	return EXIT_SUCCESS;
 }
 
@@ -297,23 +271,19 @@ int citaj_iz_datoteke(pozicija head) {
 	fp = fopen("osobe.txt", "r");
 	char ime[MAX_SIZE] = { 0 }, prezime[MAX_SIZE] = { 0 }, buffer = { 0 };
 	int godina_rodenja = 0;
-
 	pozicija nova_osoba = 0, temp = head;
 
 	if (!fp) {
 		printf("Greska pri alociranju.\n");
 		return -1;
 	}
-
 	while (!feof(fp)) {
 		fscanf(fp, "%s %s %d\n", ime, prezime, &godina_rodenja);
 		dodaj_listu(head, ime, prezime, &godina_rodenja);
 	}
-
 	fclose(fp);
 	return EXIT_SUCCESS;
 }
-
 
 int pisi_u_datoteku(pozicija head)
 {
@@ -328,13 +298,11 @@ int pisi_u_datoteku(pozicija head)
 		printf("Greska u otvaranju datoteke!\n");
 		return -1;
 	}
-
 	while (p != NULL) {
 		fprintf(fp, "Ime: %s \tPrezime: %s \tGodina: %d\n", p->ime, p->prezime, p->godina_rodenja);
 		p = p->next;
 	}
-
 	fclose(fp);
 
-	return 0;
+	return EXIT_SUCCESS;
 }
