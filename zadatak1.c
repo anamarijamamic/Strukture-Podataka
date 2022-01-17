@@ -1,7 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-
 #define MAX_SIZE 128
 #define MAX_LINE 1024
 #define MAX_BODOVI 100
@@ -39,7 +38,6 @@ int main()
 	return 0;
 }
 
-
 int ProcitajBrojRedakaDatoteke(char* nazivDatoteke)
 {
 	int brojac = 0;
@@ -48,7 +46,7 @@ int ProcitajBrojRedakaDatoteke(char* nazivDatoteke)
 
 	datoteka = fopen(nazivDatoteke, "r");
 	if (!datoteka) {
-		printf("Greska!!!");
+		printf("Greska!");
 		return -1;
 	}
 
@@ -72,7 +70,7 @@ student* AlocirajMemorijuIProcitajStudente(int brojStudenata, char* nazivDatotek
 	datoteka = fopen(nazivDatoteke, "r");
 	if (!datoteka)
 	{
-		printf("Greska alociranja memorije!");
+		printf("Greska prilikom alokacije memorije!");
 		free(studenti);
 		return NULL;
 	}
@@ -85,10 +83,7 @@ student* AlocirajMemorijuIProcitajStudente(int brojStudenata, char* nazivDatotek
 	fclose(datoteka);
 
 	return studenti;
-
 }
-
-
 
 double maksimalanBrojBodovaStudenata(student* studenti, int brojStudenata)
 {
